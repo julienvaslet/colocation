@@ -1,30 +1,53 @@
 <?php
 
-	namespace database;
+namespace database;
+
+require_once( dirname( __FILE__ )."/Object.class.php" );
+
+final class UserCategoryExclusion extends Object
+{
+	protected static $schema = "colocation";
+	protected static $table = "user_category_exclusion";
 	
-	require_once( dirname( __FILE__ ).'/Object.class.php' );
+	protected static $fields = array(
+		"person_id" => array(
+			"type" 			=> "integer",
+			"bits"			=> 24,
+			"unsigned" 		=> true,
+			"autoIncrement"	=> true
+		),
+		"family_id" => array(
+			"type" 			=> "integer",
+			"bits"			=> 24,
+			"unsigned" 		=> true
+		),
+		"firstname" => array(
+			"type"		=> "string",
+			"maxlength"	=> 64
+		),
+		"birthday" => array(
+			"type" 		=> "date"
+		)
+	);
+	
+	protected static $keys = array(
+		"primary" => array( "person_id" ),
+		"foreign" => array(
+			array(
+				"fields" => "family_id",
+				"table" => "family",
+				"references" => "family_id",
+				"onDelete" => "cascade",
+				"onUpdate" => "cascade"
+			),
+		)
+	);
 
-	final class UserCategoryExclusion extends Object
-	{
-		protected static $schema = 'colocation';
-		protected static $table = 'user_categories_exclusion';
-		protected static $primaryKey = array( 'user_id', 'category_id' );
-
-		public $user_id;
-		public $category_id;
-
-		public function __construct( $user_id, $category_id, $load = true )
-		{
-			$this->user_id = $user_id;
-			$this->category_id = $category_id;
-			parent::__construct( $load );
-		}
-
-		public function __destruct()
-		{
-			parent::__destruct();
-		}
-		
-	}
+	public $person_id;
+	public $family_id;
+	public $firstname;
+	public $birthday;
+}
 
 ?>
+
