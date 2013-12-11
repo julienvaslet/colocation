@@ -10,43 +10,41 @@ final class UserCategoryExclusion extends Object
 	protected static $table = "user_category_exclusion";
 	
 	protected static $fields = array(
-		"person_id" => array(
+		"user_id" => array(
 			"type" 			=> "integer",
 			"bits"			=> 24,
 			"unsigned" 		=> true,
 			"autoIncrement"	=> true
 		),
-		"family_id" => array(
+		"category_id" => array(
 			"type" 			=> "integer",
 			"bits"			=> 24,
 			"unsigned" 		=> true
-		),
-		"firstname" => array(
-			"type"		=> "string",
-			"maxlength"	=> 64
-		),
-		"birthday" => array(
-			"type" 		=> "date"
 		)
 	);
 	
 	protected static $keys = array(
-		"primary" => array( "person_id" ),
+		"primary" => array( "user_id", "category_id" ),
 		"foreign" => array(
 			array(
-				"fields" => "family_id",
-				"table" => "family",
-				"references" => "family_id",
+				"fields" => "user_id",
+				"table" => "user",
+				"references" => "user_id",
 				"onDelete" => "cascade",
 				"onUpdate" => "cascade"
 			),
+			array(
+				"fields" => "category_id",
+				"table" => "category",
+				"references" => "category_id",
+				"onDelete" => "cascade",
+				"onUpdate" => "cascade"
+			)
 		)
 	);
 
-	public $person_id;
-	public $family_id;
-	public $firstname;
-	public $birthday;
+	public $user_id;
+	public $category_id;
 }
 
 ?>
