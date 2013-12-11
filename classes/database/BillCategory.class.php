@@ -16,37 +16,44 @@ final class BillCategory extends Object
 			"unsigned" 		=> true,
 			"autoIncrement"	=> true
 		),
-		"family_id" => array(
+		"category_id" => array(
 			"type" 			=> "integer",
 			"bits"			=> 24,
 			"unsigned" 		=> true
 		),
-		"firstname" => array(
-			"type"		=> "string",
-			"maxlength"	=> 64
-		),
-		"birthday" => array(
-			"type" 		=> "date"
+		"amount" => array(
+			"type"				=> "decimal",
+			"integerPart"		=> 5,
+			"fractionalPart"	=> 2,
+			"unsigned"			=> true,
+			"null"				=> false,
+			"default"			=> 0.0
 		)
 	);
 	
 	protected static $keys = array(
-		"primary" => array( "person_id" ),
+		"primary" => array( "bill_id", "category_id" ),
 		"foreign" => array(
 			array(
-				"fields" => "family_id",
-				"table" => "family",
-				"references" => "family_id",
+				"fields" => "bill_id",
+				"table" => "bill",
+				"references" => "bill_id",
 				"onDelete" => "cascade",
 				"onUpdate" => "cascade"
 			),
+			array(
+				"fields" => "category_id",
+				"table" => "category",
+				"references" => "category_id",
+				"onDelete" => "cascade",
+				"onUpdate" => "cascade"
+			)
 		)
 	);
 
-	public $person_id;
-	public $family_id;
-	public $firstname;
-	public $birthday;
+	public $bill_id;
+	public $category_id;
+	public $amount;
 }
 
 ?>
