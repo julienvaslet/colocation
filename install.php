@@ -47,7 +47,7 @@ if( count( $classes ) > 0 )
 	Database::getInstance()->query( "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;" );
 	
 	foreach( $classes as $class )
-		$class::getSqlCreateTable();
+		echo $class::getSqlCreateTable() . "\n";
 		
 	Database::getInstance()->query( "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;" );
 	echo "</pre>";
