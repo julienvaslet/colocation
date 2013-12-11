@@ -13,8 +13,7 @@ final class BillCategory extends Object
 		"bill_id" => array(
 			"type" 			=> "integer",
 			"bits"			=> 24,
-			"unsigned" 		=> true,
-			"autoIncrement"	=> true
+			"unsigned" 		=> true
 		),
 		"category_id" => array(
 			"type" 			=> "integer",
