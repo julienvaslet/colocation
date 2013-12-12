@@ -8,8 +8,40 @@
 		<h1>{MonthName}</h1>
 
 		<ul id="users">
-		</div>
+			<li class="titles">
+				<span class="username">{language.username}</span>
+				<span class="purchases">{language.purchases}</span>
+				<span class="target">{language.target}</span>
+				<span class="balance">{language.balance}</span>
+			</li>
+		<block name="user">
+			<li class="user {user.odd}">
+				<span class="username">{user.name}</span>
+				<span class="purchases">{user.purchases}</span>
+				<span class="target">{user.target}</span>
+				<span class="balance {user.positive} {user.negative}">{user.balance}</span>
+			</li>
+		</block>
+		</ul>
 
 		<ul id="bills">
+			<li class="titles">
+				<span class="date">{language.date}</span>
+				<span class="username">{language.username}</span>
+				<span class="shop">{language.shop}</span>
+				<span class="amount">{language.amount}</span>
+			</li>
+		<block name="bill">
+			<li class="bill {bill.odd}">
+				<span class="date">{bill.date}</span>
+				<span class="username">{bill.user}</span>
+				<span class="shop">{bill.shop}</span>
+				<span class="amount">{bill.amount}</span>
+			</li>
+		</block>
+			<li class="summaries">
+				<span class="summary">{language.total}</span>
+				<span class="amount">{billsSumary}</span>
+			</li>
 		</ul>
 <include file="footer.html" />
