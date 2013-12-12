@@ -43,7 +43,7 @@ final class Bill extends Object
 		"foreign" => array(
 			array(
 				"fields" => "user_id",
-				"table" => "family",
+				"table" => "user",
 				"references" => "user_id",
 				"onDelete" => "cascade",
 				"onUpdate" => "cascade"
