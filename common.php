@@ -26,6 +26,17 @@ $language = array(
 	"summary" => "Total"
 );
 
-$template->addVariable( "language", $language );
+function addLanguageVariables( $variables, $basename )
+{
+	foreach( $variables as $name => $value )
+	{
+		if( is_array( $value ) )
+			addLanguageVariables( $value, $basename.".".$name );
+		else
+			$template->addVariable( $basename.".".$name, $value );
+	}
+}
+
+addLanguageVariables( $language, "language" );
 
 ?>
