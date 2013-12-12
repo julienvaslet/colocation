@@ -28,6 +28,8 @@ $language = array(
 
 function addLanguageVariables( $variables, $basename )
 {
+	global $template;
+	
 	foreach( $variables as $name => $value )
 	{
 		if( is_array( $value ) )
