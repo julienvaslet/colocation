@@ -43,14 +43,21 @@ else
 	
 if( count( $classes ) > 0 )
 {
-	Database::getInstance()->query( "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;" );
+	try
+	{
+		Database::getInstance()->query( "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;" );
 	
-	foreach( $classes as $class )
-		$class::createTable();
+		foreach( $classes as $class )
+			$class::createTable();
 		
-	Database::getInstance()->query( "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;" );
+		Database::getInstance()->query( "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;" );
 	
-	echo "End of installation. If there is no error below, all is OK!";
+		echo "End of installation. If there is no error below, all is OK!";
+	}
+	catch( Exception $e )
+	{
+		echo "An exception has occured:\n" . $e->getMessage();
+	}
 }
 else
 	echo "# There is no table.";
