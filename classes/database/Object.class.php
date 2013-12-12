@@ -572,7 +572,7 @@ abstract class Object
 				{
 					$query .= strtoupper( $options["type"] );
 					
-					if( array_key_exists( "integerPart", $options ) && array_key_exists( "fractionalPart" ) && intval( $options["integerPart"] ) > 0 && intval( $options["fractionalPart"] ) >= 0 )
+					if( array_key_exists( "integerPart", $options ) && array_key_exists( "fractionalPart", $options ) && intval( $options["integerPart"] ) > 0 && intval( $options["fractionalPart"] ) >= 0 )
 						$query .= "(". intval( $options["integerPart"] ). ",". intval( $options["fractionalPart"] ). ")";
 					
 					if( array_key_exists( "unsigned", $options ) && $options["unsigned"] === true )
