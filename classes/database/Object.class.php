@@ -333,6 +333,8 @@ abstract class Object
 		$query .= ";";
 		
 		$result = $db->query( $query );
+		
+		var_dump( $result );
 
 		if( $result )
 		{
