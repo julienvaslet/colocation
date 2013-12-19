@@ -23,7 +23,9 @@ $language = array(
 	"date" => "Date",
 	"shop" => "Magasin",
 	"amount" => "Montant",
-	"summary" => "Total"
+	"summary" => "Total",
+	"no_user" => "Il n'y a aucun utilisateur.",
+	"no_bill" => "Il n'y a aucun ticket de caisse ce mois-ci."
 );
 
 function addLanguageVariables( $variables, $basename )
