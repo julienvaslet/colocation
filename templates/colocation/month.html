@@ -14,6 +14,7 @@
 				<span class="target">{language.target}</span>
 				<span class="balance">{language.balance}</span>
 			</li>
+		<if exp="{UsersCount} > 0">
 		<block name="user">
 			<li class="user {user.odd}">
 				<span class="username">{user.name}</span>
@@ -22,6 +23,9 @@
 				<span class="balance {user.positive} {user.negative}">{user.balance}</span>
 			</li>
 		</block>
+		<else />
+			<li class="user empty">{language.no_user}</li>
+		</if>
 		</ul>
 
 		<ul id="bills">
@@ -31,6 +35,7 @@
 				<span class="shop">{language.shop}</span>
 				<span class="amount">{language.amount}</span>
 			</li>
+		<if exp="{BillsCount} > 0">
 		<block name="bill">
 			<li class="bill {bill.odd}">
 				<span class="date">{bill.date}</span>
@@ -43,5 +48,8 @@
 				<span class="summary">{language.summary}</span>
 				<span class="amount">{billsSumary}</span>
 			</li>
+		<else />
+			<li class="bill empty">{language.no_bill}</li>
+		</if>
 		</ul>
 <include file="footer.html" />
