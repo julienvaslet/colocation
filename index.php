@@ -81,9 +81,25 @@ for( $i = 0 ; $i < count( $navigationMonthes ) ; $i++ )
 
 $template->addVariable( "MonthName", $language["monthes"][$currentMonth - 1]. " " .$currentYear );
 
+$bills = Bill::get( array(), "purchase_date ASC" );
 $users = User::get( array(), "user_name ASC" );
+$billSummaries = array();
 
-var_dump( $users );
+// Compute bill summaries
+foreach( $bills as $bill )
+{
+
+}
+
+// Compute each user purchases & debts
+foreach( $users as $user )
+{
+	
+}
+
+$template->addVariable( "UsersCount", count( $users ) );
+$template->addVariable( "BillsCount", count( $bills ) );
+$template->addVariable( "BillSummary", "0" );
 
 /*$posts = Post::get( array(), "creation_datetime DESC", 1, 10 );
 $i = 0;
