@@ -67,8 +67,12 @@ class Database extends \mysqli
 	 */
 	public function query( $query )
 	{
-		if( !parent::query( $query ) )
+		$result = parent::query( $query );
+		
+		if( !$result )
 			throw new \Exception( "SQL Error (". $this->errno. "): ". $this->error );
+
+		return $result;
 	}
 }
 
