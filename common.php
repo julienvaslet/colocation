@@ -25,7 +25,9 @@ $language = array(
 	"amount" => "Montant",
 	"summary" => "Total",
 	"no_user" => "Il n'y a aucun utilisateur.",
-	"no_bill" => "Il n'y a aucun ticket de caisse ce mois-ci."
+	"no_bill" => "Il n'y a aucun ticket de caisse ce mois-ci.",
+	"cancel" => "Annuler",
+	"add" => "Ajouter"
 );
 
 function addLanguageVariables( $variables, $basename )
