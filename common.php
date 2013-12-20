@@ -30,7 +30,7 @@ $language = array(
 	"add" => "Ajouter",
 	"date_format" => "dd/mm/YYYY",
 	"date_pattern" => "[0-9]{2}/[0-9]{2}/[0-9]{4}",
-	"date_pattern_decription" => "Le format de la date est jj/mm/aaaa."
+	"date_pattern_description" => "Le format de la date est jj/mm/aaaa."
 );
 
 function addLanguageVariables( $variables, $basename )
