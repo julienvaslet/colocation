@@ -1,5 +1,98 @@
-// Month navigation
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
 
-// Users balances
+*
+{
+	font-family: "Ubuntu", sans-serif;
+}
 
-// Bills
+h1
+{
+	font-size: 24px; 
+	text-align: center;
+}
+
+ul#monthes
+{
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+ul#monthes > li.month
+{
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+
+	list-style: none;
+}
+
+ul#monthes > li.far:after
+{
+	content: " ... ";
+}
+
+ul > li.titles > span
+{
+	font-weight: bold;
+}
+
+ul#users
+{
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul#users > li
+{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+ul#users span.username
+{
+}
+
+ul#users span.purchases
+{
+}
+
+ul#users span.target
+{
+}
+
+ul#users span.balance
+{
+}
+
+ul#bills
+{
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul#bills > li
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+ul#bills span.date
+{
+}
+
+ul#bills span.username
+{
+}
+
+ul#bills span.shop
+{
+}
+
+ul#bills span.amount
+{
+}
+

@@ -7,9 +7,10 @@ use database\User;
 
 if( isset( $_POST['username'] ) && !empty( $_POST['username'] ) )
 {
-	if( User::count( array( 'username' => $_POST['username'] ) ) == 0 )
+	$username = strtolower( $_POST['username'] );
+	if( User::count( array( 'user_name' => $username ) ) == 0 )
 	{
-		User::create( array( 'username' => $_POST['username'] ) );
+		$userId = User::create( array( 'user_name' => $username ) );
 	}
 	else
 	{
@@ -17,6 +18,6 @@ if( isset( $_POST['username'] ) && !empty( $_POST['username'] ) )
 	}
 }
 
-//header( 'Location: /', 301 );
+header( 'Location: /', 301 );
 
 ?>

@@ -83,18 +83,56 @@ $template->addVariable( "MonthName", $language["monthes"][$currentMonth - 1]. " 
 
 $bills = Bill::get( array(), "purchase_date ASC" );
 $users = User::get( array(), "user_name ASC" );
-$billSummaries = array();
+$billSummary = 0.0;
 
 // Compute bill summaries
+$odd = true;
 foreach( $bills as $bill )
 {
+	$user = new User( $bill->user_id );
+	$billSummary += $bill->amount;
 
+	$template->addBlock( new Block( "bill", array(
+		"odd" => $odd,
+		"id" => $bill->bill_id,
+		"date" => strftime( $language["date_format"], strtotime( $bill->purchase_date ) ),
+		"user" => ucfirst( $user->user_name ),
+		"shop" => ucfirst( $bill->shop_name ),
+		"amount" => number_format( $bill->amount, 2, ".", " " ). "&nbsp;". $language["currency"]
+	) ) );
+
+	$odd = !$odd;
 }
 
+$template->addVariable( "billsSummary", number_format( $billSummary, 2, ".", " " ). "&nbsp;". $language["currency"] );
+
 // Compute each user purchases & debts
+$odd = true;
 foreach( $users as $user )
 {
-	
+	$target = $billSummary / count( $users );
+	$purchases = 0.0;
+
+	foreach( $bills as $bill )
+	{
+		if( $bill->user_id == $user->user_id )
+			$purchases += $bill->amount;
+	}
+
+	$balance = $purchases - $target;
+
+	$template->addBlock( new Block( "user", array(
+		"odd" => $odd,
+		"id" => $user->user_id,
+		"name" => ucfirst( $user->user_name ),
+		"target" => number_format( $target, 2, ".", " " ). "&nbsp;". $language["currency"],
+		"purchases" => number_format( $purchases, 2, ".", " " ). "&nbsp;". $language["currency"],
+		"balance" => number_format( $balance, 2, ".", " " ). "&nbsp;". $language["currency"],
+		"positive" => ( $balance > 0 ) ? "positive" : "",
+		"negative" => ( $balance < 0 ) ? "negative" : ""
+	) ) );
+
+	$odd = !$odd;
 }
 
 $template->addVariable( "UsersCount", count( $users ) );

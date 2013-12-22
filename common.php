@@ -28,9 +28,10 @@ $language = array(
 	"no_bill" => "Il n'y a aucun ticket de caisse ce mois-ci.",
 	"cancel" => "Annuler",
 	"add" => "Ajouter",
-	"date_format" => "dd/mm/YYYY",
+	"date_format" => "%d/%m/%Y",
 	"date_pattern" => "[0-9]{2}/[0-9]{2}/[0-9]{4}",
-	"date_pattern_description" => "Date au format jj/mm/aaaa"
+	"date_pattern_description" => "Date au format jj/mm/aaaa",
+	"currency" => "&euro;"
 );
 
 function addLanguageVariables( $variables, $basename )

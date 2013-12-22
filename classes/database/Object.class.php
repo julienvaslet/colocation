@@ -158,7 +158,7 @@ abstract class Object
 
 		// Each key is casted to string in order to always match keys.
 		// Database results sometimes return a string instead of an integer.
-		foreach( static::$primaryKey as $key )
+		foreach( static::$keys["primary"] as $key )
 			$instanceId[] = array_key_exists( $key, $primaryKey ) ? (string) $primaryKey[ $key ] : null;
 
 		$instanceId = serialize( $instanceId );
@@ -174,7 +174,7 @@ abstract class Object
 
 			$parameters = array();
 
-			foreach( static::$primaryKey as $key )
+			foreach( static::$keys["primary"] as $key )
 			{
 				if( array_key_exists( $key, $primaryKey ) )
 					$parameters[] = $primaryKey[ $key ];
@@ -200,7 +200,7 @@ abstract class Object
 
 		// Each key is casted to string in order to always match keys.
 		// Database results sometimes return a string instead of an integer.
-		foreach( static::$primaryKey as $key )
+		foreach( static::$keys["primary"] as $key )
 			$instanceId[] = array_key_exists( $key, $primaryKey ) ? (string) $primaryKey[ $key ] : null;
 
 		$instanceId = serialize( $instanceId );
@@ -267,7 +267,7 @@ abstract class Object
 	{
 		$primaryKey = array();
 
-		foreach( static::$primaryKey as $key )
+		foreach( static::$keys["primary"] as $key )
 			$primaryKey[ $key ] = $this->$key;
 
 		static::deleteInstance( $primaryKey );
@@ -281,13 +281,13 @@ abstract class Object
 
 		foreach( $this as $attribute => $value )
 		{
-			if( !in_array( $attribute, static::$primaryKey ) )
+			if( !in_array( $attribute, static::$keys["primary"] ) )
 				$data[ $attribute ] = $value;
 		}
 
 		$selectors = array();
 
-		foreach( static::$primaryKey as $key )
+		foreach( static::$keys["primary"] as $key )
 			$selectors[ $key ] = $this->$key;
 
 		$query = "UPDATE `".static::$schema."`.`".static::$table."` SET ".static::dataToQuery( $data )." WHERE ".static::getSqlSelectors( $selectors )." LIMIT 1;";
@@ -304,7 +304,7 @@ abstract class Object
 
 		$selectors = array();
 
-		foreach( static::$primaryKey as $key )
+		foreach( static::$keys["primary"] as $key )
 			$selectors[ $key ] = $this->$key;
 
 		$query = "DELETE FROM `".static::$schema."`.`".static::$table."` WHERE ".static::getSqlSelectors( $selectors )." LIMIT 1;";
@@ -357,7 +357,7 @@ abstract class Object
 			$query .= " WHERE ".static::getSqlSelectors( $selectors );
 
 		$query .= ";";
-		
+
 		$result = $db->query( $query );
 
 		if( $result )
@@ -366,7 +366,10 @@ abstract class Object
 			return $row["count"];
 		}
 		else
+		{
+			var_dump( $db->error, $query );
 			return false;
+		}
 	}
 
 	final public static function create( array $data )
@@ -428,7 +431,7 @@ abstract class Object
 	{
 		$primaryKey = array();
 
-		foreach( static::$primaryKey as $key )
+		foreach( static::$keys["primary"] as $key )
 			$primaryKey[ $key ] = $data[ $key ];
 
 		$object = static::getInstance( $primaryKey, false );

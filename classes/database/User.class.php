@@ -28,6 +28,17 @@ final class User extends Object
 
 	public $user_id;
 	public $user_name;
+
+	public function getByName( $username )
+	{
+		$user = null;
+		$users = static::get( array( "user_name" => $username ), null, 1, 1 );
+
+		if( count( $users ) > 0 )
+			$user = $users[0];
+
+		return $user;
+	}
 }
 
 ?>
