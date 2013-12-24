@@ -81,7 +81,7 @@ for( $i = 0 ; $i < count( $navigationMonthes ) ; $i++ )
 
 $template->addVariable( "MonthName", $language["monthes"][$currentMonth - 1]. " " .$currentYear );
 
-$bills = Bill::get( array(), "purchase_date ASC" );
+$bills = Bill::get( array( "purchase_date" => array( array( ">=", $currentYear."-".$currentMonth."-01" ), array( "<", $currentYear."-".($currentMonth + 1)."-01" ) ) ), "purchase_date ASC" );
 $users = User::get( array(), "user_name ASC" );
 $billSummary = 0.0;
 
@@ -93,7 +93,7 @@ foreach( $bills as $bill )
 	$billSummary += $bill->amount;
 
 	$template->addBlock( new Block( "bill", array(
-		"odd" => $odd,
+		"odd" => $odd ? "odd" : "",
 		"id" => $bill->bill_id,
 		"date" => strftime( $language["date_format"], strtotime( $bill->purchase_date ) ),
 		"user" => ucfirst( $user->user_name ),
@@ -122,7 +122,7 @@ foreach( $users as $user )
 	$balance = $purchases - $target;
 
 	$template->addBlock( new Block( "user", array(
-		"odd" => $odd,
+		"odd" => $odd ? "odd" : "",
 		"id" => $user->user_id,
 		"name" => ucfirst( $user->user_name ),
 		"target" => number_format( $target, 2, ".", " " ). "&nbsp;". $language["currency"],
@@ -138,20 +138,6 @@ foreach( $users as $user )
 $template->addVariable( "UsersCount", count( $users ) );
 $template->addVariable( "BillsCount", count( $bills ) );
 $template->addVariable( "BillSummary", "0" );
-
-/*$posts = Post::get( array(), "creation_datetime DESC", 1, 10 );
-$i = 0;
-
-foreach( $posts as $post )
-{
-	$template->addBlock( new Block( "post", array(
-		"id" => $post->post_id,
-		"title1" => htmlentities( $post->title1 ),
-		"title2" => htmlentities( $post->title2 ),
-		"content" => "<p>". htmlentities( $post->content ). "</p>",
-		"last" => ++$i == count( $posts )
-	) ) );
-}*/
 
 $template->show( "month.html" );
 ?>

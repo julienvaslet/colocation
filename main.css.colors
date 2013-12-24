@@ -1,11 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
 
 /* Color scheme
- * Dark : #000000
- * Mi-Dark : #444444
- * Middle : #888888
- * Mi-Light : #cccccc
- * Light : #ffffff
+ * Dark : [[dark]]
+ * Mi-Dark : [[mi-dark]]
+ * Middle : [[middle]]
+ * Mi-Light : [[mi-light]]
+ * Light : [[light]]
  */
 
 

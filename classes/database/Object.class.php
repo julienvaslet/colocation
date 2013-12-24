@@ -497,18 +497,42 @@ abstract class Object
 		$selectorsArray = array();
 
 		foreach( $selectors as $selector => $value )
-		{
-			if( is_null( $value ) )						
-				$selectorsArray[] = "`".static::$table."`.`".$selector."` IS ".Object::escapeData( $value );
-				
-			else if( is_array( $value ) )
-				$selectorsArray[] = "`".static::$table."`.`".$selector."` IN ( ". implode( ",", array_map( function( $d ){ return Object::escapeData( $d ); }, $value ) ). ")";
-				
-			else
-				$selectorsArray[] = "`".static::$table."`.`".$selector."` = ".Object::escapeData( $value );
-		}
+			$selectorsArray = array_merge( $selectorsArray, Object::getSqlSelector( $selector, $value ) );
 
 		return join( $selectorsArray, " AND " );
+	}
+
+	/**
+	 *
+	 */
+	final private static function getSqlSelector( $selector, $value )
+	{
+		$selectorsArray = array();
+
+		if( is_null( $value ) )						
+			$selectorsArray[] = "`".static::$table."`.`".$selector."` IS ".Object::escapeData( $value );
+				
+		else if( is_array( $value ) )
+		{
+			if( $value[0] == "set" )
+			{
+				array_shift( $value );
+				$selectorsArray[] = "`".static::$table."`.`".$selector."` IN ( ". implode( ",", array_map( function( $d ){ return Object::escapeData( $d ); }, $value ) ). ")";
+			}
+			else if( in_array( $value[0], array( '=', '>', '<', '<=', '>=', '!=' ) ) && count( $value ) >= 2 )
+			{
+				$selectorsArray[] = "`".static::$table."`.`".$selector."` ".$value[0]." ".Object::escapeData( $value[1] );
+			}
+			else
+			{
+				foreach( $value as $subvalue )
+					$selectorsArray = array_merge( $selectorsArray, Object::getSqlSelector( $selector, $subvalue ) );
+			}
+		}	
+		else
+			$selectorsArray[] = "`".static::$table."`.`".$selector."` = ".Object::escapeData( $value );
+
+		return $selectorsArray;
 	}
 	
 	/**
