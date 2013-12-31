@@ -81,9 +81,18 @@ for( $i = 0 ; $i < count( $navigationMonthes ) ; $i++ )
 
 $template->addVariable( "MonthName", $language["monthes"][$currentMonth - 1]. " " .$currentYear );
 
+$categories = Category::get( array(), "category_name ASC" );
 $bills = Bill::get( array( "purchase_date" => array( array( ">=", $currentYear."-".$currentMonth."-01" ), array( "<", $currentYear."-".($currentMonth + 1)."-01" ) ) ), "purchase_date ASC" );
 $users = User::get( array(), "user_name ASC" );
 $billSummary = 0.0;
+
+foreach( $categories as $category )
+{
+	$template->addBlock( new Block( "category", array(
+		"id" => $category->category_id,
+		"name" => ucfirst( $category->category_name )
+	) ) );
+}
 
 // Compute bill summaries
 $odd = true;

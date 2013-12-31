@@ -28,6 +28,17 @@ final class Category extends Object
 
 	public $category_id;
 	public $category_name;
+
+	public function getByName( $category_name )
+	{
+		$category = null;
+		$categories = static::get( array( "category_name" => $category_name ), null, 1, 1 );
+
+		if( count( $categories ) > 0 )
+			$category = $categories[0];
+
+		return $category;
+	}
 }
 
 ?>

@@ -73,6 +73,7 @@ ul#users
 	padding: 0px;
 	width: 462px;
 	margin: 0 auto; 
+	margin-bottom: 20px;
 }
 
 ul#users > li
@@ -126,6 +127,24 @@ ul#users span.positive
 	color: green;
 }
 
+ul#users li.edit > a.add
+{
+	display: block;
+	height: 32px;
+	width: 462px;
+
+	line-height: 30px;
+	text-align: center;
+
+	color: black;
+	text-decoration: none;
+}
+
+ul#users li.edit > form
+{
+	display: none;
+}
+
 ul#bills
 {
 	display: block;
@@ -170,5 +189,23 @@ ul#bills span.amount
 ul#bills li.titles span.amount
 {
 	text-align: left;
+}
+
+ul#bills li.edit > a.add
+{
+	display: block;
+	height: 32px;
+	width: 512px;
+
+	line-height: 30px;
+	text-align: center;
+
+	color: black;
+	text-decoration: none;
+}
+
+ul#bills li.edit > form
+{
+	display: none;
 }
 
