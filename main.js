@@ -9,7 +9,7 @@ jQuery( function()
 
 	$("ul#users li.edit form input[type=reset], ul#bills li.edit form input[type=reset]").click( function()
 	{
-		var form = $(this).parent();
+		var form = $(this).parents( "form:first" );
 		form.prev( "a" ).css( "display", "block" );
 		form.css( "display", "none" );
 	} );
@@ -33,7 +33,6 @@ jQuery( function()
 
 		if( categoryExists == false && category != "" )
 		{
-			console.log( "gooo" );
 			var p = $("<p/>");
 			p.append( $("<span />").addClass( "category" ).text( category ) );
 			var input = $("<input/>");

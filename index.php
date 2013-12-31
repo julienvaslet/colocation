@@ -86,8 +86,17 @@ $bills = Bill::get( array( "purchase_date" => array( array( ">=", $currentYear."
 $users = User::get( array(), "user_name ASC" );
 $billSummary = 0.0;
 
+$categoriesName = array();
+$bills_id = array( "set", NULL );
+
+foreach( $bills as $bill )
+	$bills_id[] = $bill->bill_id;
+
+$billCategories = BillCategory::get( array( "bill_id" => $bills_id ) );
+
 foreach( $categories as $category )
 {
+	$categoriesName[$category->category_id] = ucfirst( $category->category_name );
 	$template->addBlock( new Block( "category", array(
 		"id" => $category->category_id,
 		"name" => ucfirst( $category->category_name )
@@ -101,14 +110,27 @@ foreach( $bills as $bill )
 	$user = new User( $bill->user_id );
 	$billSummary += $bill->amount;
 
-	$template->addBlock( new Block( "bill", array(
+	$billBlock = new Block( "bill", array(
 		"odd" => $odd ? "odd" : "",
 		"id" => $bill->bill_id,
 		"date" => strftime( $language["date_format"], strtotime( $bill->purchase_date ) ),
 		"user" => ucfirst( $user->user_name ),
 		"shop" => ucfirst( $bill->shop_name ),
 		"amount" => number_format( $bill->amount, 2, ".", " " ). "&nbsp;". $language["currency"]
-	) ) );
+	) );
+
+	foreach( $billCategories as $billCategory )
+	{
+		if( $billCategory->bill_id == $bill->bill_id )
+		{
+			$billBlock->addBlock( new Block( "category", array(
+				"name" => $categoriesName[$billCategory->category_id],
+				"amount" => number_format( $billCategory->amount, 2, ".", " " ). "&nbsp;". $language["currency"]
+			) ) );
+		}
+	}
+
+	$template->addBlock( $billBlock );
 
 	$odd = !$odd;
 }
