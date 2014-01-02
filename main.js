@@ -1,5 +1,16 @@
 jQuery( function()
 {
+	$("ul#users li:not(.edit)").click( function()
+	{
+		$(this).children( "form" ).css( "display", "block" );
+	} );
+
+	$("ul#users li:not(.edit) input[type=reset]").click( function( e )
+	{
+		$(this).parents( "form:first" ).css( "display", "none" );
+		e.stopPropagation();
+	} );
+
 	$("ul#users li.edit a.add, ul#bills li.edit a.add").click( function()
 	{
 		$(this).next( "form" ).css( "display", "block" );

@@ -21,6 +21,26 @@
 				<span class="purchases">{user.purchases}</span>
 				<span class="target">{user.target}</span>
 				<span class="balance {user.positive} {user.negative}">{user.balance}</span>
+
+				<form method="post" action="/update-user.php">
+					<input type="hidden" name="user" value="{user.id}" />
+					<block name="exclusion">
+					<p>
+						<span class="category">{exclusion.name}</span>
+						<span class="exclusion">
+						<if exp="{exclusion.excluded} == 'true'">
+							<input type="checkbox" name="exclusion[{exclusion.id}]" />
+						<else />
+							<input type="checkbox" name="exclusion[{exclusion.id}]" checked="checked" />
+						</if>
+						</span>
+					</p>
+					</block>
+					<p>
+						<input type="reset" value="{language.cancel}" />
+						<input type="submit" value="{language.edit}" />
+					</p>
+				</form>
 			</li>
 		</block>
 		<else />
@@ -103,6 +123,12 @@
 				</form>
 			</li>
 		<if exp="{BillsCount} > 0">
+			<block name="summary">
+			<li class="summaries">
+				<span class="summary">{summary.name}</span>
+				<span class="amount">{summary.amount}</span>
+			</li>
+			</block>
 			<li class="summaries">
 				<span class="summary">{language.summary}</span>
 				<span class="amount">{billsSummary}</span>

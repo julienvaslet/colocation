@@ -127,6 +127,11 @@ ul#users span.positive
 	color: green;
 }
 
+ul#users li > form
+{
+	display: none;
+}
+
 ul#users li.edit > a.add
 {
 	display: block;

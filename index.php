@@ -84,7 +84,9 @@ $template->addVariable( "MonthName", $language["monthes"][$currentMonth - 1]. " 
 $categories = Category::get( array(), "category_name ASC" );
 $bills = Bill::get( array( "purchase_date" => array( array( ">=", $currentYear."-".$currentMonth."-01" ), array( "<", $currentYear."-".($currentMonth + 1)."-01" ) ) ), "purchase_date ASC" );
 $users = User::get( array(), "user_name ASC" );
+$usersCategoriesExclusions = UserCategoryExclusion::get();
 $billSummary = 0.0;
+$categoriesSummary = array();
 
 $categoriesName = array();
 $bills_id = array( "set", NULL );
@@ -127,6 +129,11 @@ foreach( $bills as $bill )
 				"name" => $categoriesName[$billCategory->category_id],
 				"amount" => number_format( $billCategory->amount, 2, ".", " " ). "&nbsp;". $language["currency"]
 			) ) );
+
+			if( !array_key_exists( $billCategory->category_id, $categoriesSummary ) )
+				$categoriesSummary[$billCategory->category_id] = 0.0;
+
+			$categoriesSummary[$billCategory->category_id] += $billCategory->amount;
 		}
 	}
 
@@ -137,11 +144,51 @@ foreach( $bills as $bill )
 
 $template->addVariable( "billsSummary", number_format( $billSummary, 2, ".", " " ). "&nbsp;". $language["currency"] );
 
+foreach( $categoriesSummary as $category_id => $summary )
+{
+	$template->addBlock( new Block( "summary", array(
+		"name" => $categoriesName[$category_id],
+		"amount" => number_format( $summary, 2, ".", " " ). "&nbsp;". $language["currency"]
+	) ) );
+}
+
+$categoriesCount = array();
+
+foreach( $categories as $category )
+{
+	$categoriesCount[$category->category_id] = count( $users );
+
+	foreach( $usersCategoriesExclusions as $exclusion )
+	{
+		if( $exclusion->category_id == $category->category_id )
+			$categoriesCount[$category->category_id]--;
+	}
+}
+
 // Compute each user purchases & debts
 $odd = true;
 foreach( $users as $user )
 {
 	$target = $billSummary / count( $users );
+
+	foreach( $categoriesCount as $category => $count )
+	{
+		$excluded = false;
+
+		foreach( $usersCategoriesExclusions as $exclusion )
+		{
+			if( $category == $exclusion->category_id && $exclusion->user_id == $user->user_id )
+			{
+				$target -= $categoriesSummary[$category] / count( $users );
+				$excluded = true;
+				break;
+			}
+		}
+
+		if( !$excluded && $count < count( $users ) )
+			$target += $categoriesSummary[$category] / count( $users ) * (count( $users ) - $count) / $count;
+	}
+
 	$purchases = 0.0;
 
 	foreach( $bills as $bill )
@@ -152,7 +199,7 @@ foreach( $users as $user )
 
 	$balance = $purchases - $target;
 
-	$template->addBlock( new Block( "user", array(
+	$userBlock = new Block( "user", array(
 		"odd" => $odd ? "odd" : "",
 		"id" => $user->user_id,
 		"name" => ucfirst( $user->user_name ),
@@ -161,14 +208,35 @@ foreach( $users as $user )
 		"balance" => number_format( $balance, 2, ".", " " ). "&nbsp;". $language["currency"],
 		"positive" => ( $balance > 0 ) ? "positive" : "",
 		"negative" => ( $balance < 0 ) ? "negative" : ""
-	) ) );
+	) );
+
+	foreach( $categoriesName as $idCategory => $name )
+	{
+		$excluded = false;
+
+		foreach( $usersCategoriesExclusions as $exclusion )
+		{
+			if( $exclusion->user_id == $user->user_id && $exclusion->category_id == $idCategory )
+			{
+				$excluded = true;
+				break;
+			}
+		}
+
+		$userBlock->addBlock( new Block( "exclusion", array(
+			"id" => $idCategory,
+			"name" => $name,
+			"excluded" => $excluded ? "true" : "false"
+		) ) );
+	}
+
+	$template->addBlock( $userBlock );
 
 	$odd = !$odd;
 }
 
 $template->addVariable( "UsersCount", count( $users ) );
 $template->addVariable( "BillsCount", count( $bills ) );
-$template->addVariable( "BillSummary", "0" );
 
 $template->show( "month.html" );
 ?>

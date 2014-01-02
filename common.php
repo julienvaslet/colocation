@@ -27,6 +27,7 @@ $language = array(
 	"no_user" => "Il n'y a aucun utilisateur.",
 	"no_bill" => "Il n'y a aucun ticket de caisse ce mois-ci.",
 	"cancel" => "Annuler",
+	"edit" => "Modifier",
 	"add" => "Ajouter",
 	"add_user" => "Ajouter un utilisateur",
 	"add_bill" => "Ajouter un ticket de caisse",

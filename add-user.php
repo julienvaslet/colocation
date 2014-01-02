@@ -5,12 +5,12 @@ require_once( RootPath. "/classes/database/User.class.php" );
 
 use database\User;
 
-if( isset( $_POST['username'] ) && !empty( $_POST['username'] ) )
+if( isset( $_POST["username"] ) && !empty( $_POST["username"] ) )
 {
-	$username = strtolower( $_POST['username'] );
-	if( User::count( array( 'user_name' => $username ) ) == 0 )
+	$username = strtolower( $_POST["username"] );
+	if( User::count( array( "user_name" => $username ) ) == 0 )
 	{
-		$userId = User::create( array( 'user_name' => $username ) );
+		$userId = User::create( array( "user_name" => $username ) );
 	}
 	else
 	{
@@ -18,6 +18,6 @@ if( isset( $_POST['username'] ) && !empty( $_POST['username'] ) )
 	}
 }
 
-header( 'Location: /', 301 );
+header( "Location: ". $_SERVER["HTTP_REFERER"], 301 );
 
 ?>

@@ -64,6 +64,6 @@ if( isset( $_POST["username"] ) && isset( $_POST["amount"] ) && !empty( $_POST["
 	}
 }
 
-header( 'Location: /', 301 );
+header( "Location: ". $_SERVER["HTTP_REFERER"], 301 );
 
 ?>
