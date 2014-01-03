@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700,300);
 
 /* Color scheme
  * Dark : #000000
@@ -11,7 +11,7 @@
 
 *
 {
-	font-family: "Ubuntu", sans-serif;
+	font-family: "Lato", sans-serif;
 }
 
 body
@@ -29,8 +29,11 @@ h1
 ul#monthes
 {
 	margin: 0px;
-	padding: 4px;
+	padding: 10px 0px;
 	text-align: center;
+	
+	border-top: 1px dashed #cccccc;
+	border-bottom: 1px dashed #cccccc;
 }
 
 ul#monthes > li.month
@@ -38,8 +41,17 @@ ul#monthes > li.month
 	display: inline;
 	margin: 0px;
 	padding: 0px;
+	
+	padding-right: 5px;
+	border-right: 1px solid #cccccc;
 
 	list-style: none;
+}
+
+ul#monthes > li.month:last-child
+{
+	padding-right: 0px;
+	border-right: none;
 }
 
 ul#monthes > li.selected
@@ -53,13 +65,13 @@ ul#monthes > li.far:after
 
 ul#monthes > li.month a
 {
-	color: black;
+	color: #777777;
 	text-decoration: none;
 }
 
 ul#monthes > li.selected a
 {
-	font-weight: bold;
+	color: #404040;
 }
 
 ul > li.titles > span
