@@ -62,7 +62,9 @@ ul#monthes > li.selected
 ul#monthes > li.far:after
 {
 	content: " ... ";
-	padding: 0 20px;
+	color: #777777;
+	padding-left: 20px;
+	margin-left: 20px;
 	border-left: 1px solid #cccccc;
 }
 
