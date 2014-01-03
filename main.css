@@ -22,7 +22,12 @@ body
 
 h1
 {
-	font-size: 24px; 
+	margin: 0px;
+	padding: 0px;
+	margin-top: 15px;
+	
+	font-size: 30px; 
+	font-weight: lighter;
 	text-align: center;
 }
 
