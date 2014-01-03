@@ -36,7 +36,7 @@
 						</span>
 					</p>
 					</block>
-					<p>
+					<p class="submit">
 						<input type="reset" value="{language.cancel}" />
 						<input type="submit" value="{language.edit}" />
 					</p>
@@ -49,11 +49,12 @@
 			<li class="edit">
 				<a class="add" href="#">{language.add_user}</a>
 				<form name="new-user" id="new-user" method="post" action="/add-user.php">
+					<h2>{language.add_user}</h2>
 					<p>
 						<span class="username"><input type="text" name="username" id="new-user-username" placeholder="{language.username}" required="true" value="" /></span>
 					</p>
 
-					<p>
+					<p class="submit">
 						<input type="reset" value="{language.cancel}" />
 						<input type="submit" value="{language.add}" />
 					</p>
@@ -66,6 +67,7 @@
 				<span class="date">{language.date}</span>
 				<span class="username">{language.username}</span>
 				<span class="shop">{language.shop}</span>
+				<block name="summary"><span class="amount">{summary.name}</span></block>
 				<span class="amount">{language.amount}</span>
 			</li>
 		<if exp="{BillsCount} > 0">
@@ -75,64 +77,65 @@
 					<span class="date">{bill.date}</span>
 					<span class="username">{bill.user}</span>
 					<span class="shop">{bill.shop}</span>
+					<block name="category"><span class="amount">{category.amount}</span></block>
 					<span class="amount">{bill.amount}</span>
 				</p>
-				<block name="category">
-				<p>
-					<span class="category">{category name}</span>
-					<span class="amount">{category amount}</span>
-				</p>
-				</block>
 			</li>
 		</block>
+		<li class="summaries">
+			<span class="date">{language.summary}</span>
+			<span class="username"></span>
+			<span class="shop"></span>
+			<block name="summary"><span class="amount">{summary.amount}</span></block>
+			<span class="amount">{billsSummary}</span>
+		</li>
 		<else />
 			<li class="bill empty">{language.no_bill}</li>
 		</if>
 			<li class="edit">
 				<a class="add" href="#">{language.add_bill}</a>
 				<form name="new-bill" id="new-bill" method="post" action="/submit-bill.php">
+					<h2>{language.add_bill}</h2>
 					<p>
-						<span class="date"><input type="date" placeholder="{language.date}" name="date" id="new-bill-date" pattern="{language.date_pattern}" title="{language.date_pattern_description}" value="" /></span>
+						<span class="date">
+							<input type="hidden" name="year" value="{CurrentYear}" />
+							<input type="hidden" name="month" value="{CurrentMonth}" />
+							<select title="{language.date}" name="day" id="new-bill-date">
+								<block name="day"><option value="{day.value}">{day.value}</option></block>
+							</select>
+							/{CurrentMonth}/{CurrentYear}
+						</span>
 						<span class="username"><input type="text" placeholder="{language.username}" name="username" id="new-bill-username" required="true" value="" /></span>
 						<span class="shop"><input type="text" placeholder="{language.shop}" name="shop" id="new-bill-shop" value="" /></span>
 						<span class="amount"><input type="number" placeholder="{language.amount}" name="amount" id="new-bill-amount" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" required="true" value="" /></span>
 					</p>
 
 					<p>
-						<span class="substract"><input type="button" id="substract-amount" value="{language.substract_this_amount}" /></span>
+						<span class="date"></span>
+						<span class="username substract"><input type="button" id="substract-amount" value="{language.substract_this_amount}" /></span>
 						<span class="amount"><input type="number" placeholder="{language.amount}" id="amount-to-substract" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" /></span>
 					</p>
 					
 					<block name="category">
-					<p>
+					<p class="category">
+						<!--<span class="add"><input type="button" id="add-amount" value="{language.add_this_amount}" /></span>-->
 						<span class="category">{category.name}</span>
-						<span class="amount"><input type="number" placeholder="{language.amount}" name="category[{category.name}]" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" value="0" required="true" /></span>
+						<span class="amount"><input type="number" placeholder="{language.amount}" name="category[{category.name}]" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" value="0.00" /></span>
 					</p>
 					</block>
 
 					<p class="edit">
-						<span class="category"><input type="text" id="new-category" value="" /></span>
+						<span class="add"></span>
+						<span class="category"><input type="text" id="new-category" value="" placeholder="{language.new_category}" /></span>
 						<span class="amount"><input type="button" class="add" value="{language.add}" /></span>
 					</p>
 					
 
-					<p>
+					<p class="submit">
 						<input type="reset" value="{language.cancel}" />
 						<input type="submit" value="{language.add}" />
 					</p>
 				</form>
 			</li>
-		<if exp="{BillsCount} > 0">
-			<block name="summary">
-			<li class="summaries">
-				<span class="summary">{summary.name}</span>
-				<span class="amount">{summary.amount}</span>
-			</li>
-			</block>
-			<li class="summaries">
-				<span class="summary">{language.summary}</span>
-				<span class="amount">{billsSummary}</span>
-			</li>
-		</if>
 		</ul>
 <include file="footer.html" />

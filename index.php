@@ -103,6 +103,8 @@ foreach( $categories as $category )
 		"id" => $category->category_id,
 		"name" => ucfirst( $category->category_name )
 	) ) );
+
+	$categoriesSummary[$category->category_id] = 0.0;
 }
 
 // Compute bill summaries
@@ -129,9 +131,6 @@ foreach( $bills as $bill )
 				"name" => $categoriesName[$billCategory->category_id],
 				"amount" => number_format( $billCategory->amount, 2, ".", " " ). "&nbsp;". $language["currency"]
 			) ) );
-
-			if( !array_key_exists( $billCategory->category_id, $categoriesSummary ) )
-				$categoriesSummary[$billCategory->category_id] = 0.0;
 
 			$categoriesSummary[$billCategory->category_id] += $billCategory->amount;
 		}
@@ -237,6 +236,19 @@ foreach( $users as $user )
 
 $template->addVariable( "UsersCount", count( $users ) );
 $template->addVariable( "BillsCount", count( $bills ) );
+
+// Get the count of day in the current month
+$lastDay = date( "d", mktime( 0, 0, 0, $currentMonth + 1, 0, $currentYear ) );
+
+for( $i = 1 ; $i <= $lastDay ; $i++ )
+{
+	$template->addBlock( new Block( "day", array(
+		"value" => $i < 10 ? "0".$i : $i
+	) ) );
+}
+
+$template->addVariable( "CurrentYear", $currentYear );
+$template->addVariable( "CurrentMonth", $currentMonth < 10 ? "0". $currentMonth : $currentMonth );
 
 $template->show( "month.html" );
 ?>

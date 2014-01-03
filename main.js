@@ -1,8 +1,17 @@
 jQuery( function()
 {
-	$("ul#users li:not(.edit)").click( function()
+	var billsWidth = ($("ul#bills li.titles").innerWidth() - $("ul#bills li.titles").width() + 2) * 2;
+	$("ul#bills li.titles span").each( function( i, el )
 	{
-		$(this).children( "form" ).css( "display", "block" );
+		billsWidth += parseInt( $(el).css( "width" ) );
+	} );
+
+	$("ul#bills").width( billsWidth );
+	$("ul#bills").css( "margin", "auto" );
+
+	$("ul#users li:not(.edit) span.username").click( function()
+	{
+		$(this).parent().children( "form" ).css( "display", "block" );
 	} );
 
 	$("ul#users li:not(.edit) input[type=reset]").click( function( e )
@@ -51,7 +60,7 @@ jQuery( function()
 			input.attr( "type", "number" );
 			input.attr( "pattern", "[0-9]+([\.,][0-9]+)?" );
 			input.attr( "required", "true" );
-			input.attr( "value", "0" );
+			input.attr( "value", "0.00" );
 
 			p.append( $("<span />").addClass( "amount" ).append( input ) );
 			p.insertBefore( $("form#new-bill p.edit") );

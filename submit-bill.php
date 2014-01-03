@@ -11,6 +11,7 @@ use database\Bill;
 use database\Category;
 use database\BillCategory;
 
+
 if( isset( $_POST["username"] ) && isset( $_POST["amount"] ) && !empty( $_POST["username"] ) && !empty( $_POST["amount"] ) && preg_match( "/^[0-9]+([,\.][0-9]+)?$/", $_POST["amount"] ) )
 {
 	$username = strtolower( $_POST["username"] );
@@ -24,10 +25,10 @@ if( isset( $_POST["username"] ) && isset( $_POST["amount"] ) && !empty( $_POST["
 		$user = new User( $user_id );
 	}
 
-	$parsedDate = strptime( $_POST["date"], $language["date_format"] );
+	$date = $_POST["year"]. "-" .$_POST["month"]. "-" .$_POST["day"];
 
-	if( $parsedDate != false )
-		$purchase_date = ( $parsedDate["tm_year"] + 1900 )."-".( $parsedDate["tm_mon"] + 1)."-".$parsedDate["tm_mday"];
+	if( strtotime( $date ) !== false )
+		$purchase_date = $date;
 	else
 	{
 		$purchase_date = null;

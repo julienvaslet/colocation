@@ -24,10 +24,20 @@ h1
 {
 	margin: 0px;
 	padding: 0px;
-	margin-top: 15px;
-	margin-bottom: 25px;
+	margin-top: 20px;
+	margin-bottom: 30px;
 	
-	font-size: 30px; 
+	font-size: 40px; 
+	font-weight: lighter;
+	text-align: center;
+}
+
+h2
+{
+	margin: 0px;
+	padding: 0px;
+
+	font-size: 20px;
 	font-weight: lighter;
 	text-align: center;
 }
@@ -85,31 +95,53 @@ ul#monthes > li.selected a
 	color: #404040;
 }
 
-ul > li.titles > span
+ul#users > li.titles, ul#bills > li.titles
+{
+	padding-bottom: 2px;
+	border-bottom: 1px solid #cccccc;
+}
+
+ul#users > li.titles > span, ul#bills > li.titles > span
 {
 	font-weight: bold;
+	color: #404040;
+}
+
+ul#users > li, ul#bills > li
+{
+	margin: 0px;
+	padding: 0px;
+	padding: 5px;
+	list-style: none;
+	color: #505050;
+}
+
+ul#users > li.odd, ul#bills > li.odd
+{
+	color: #404040;
+	background-color: #eeeeee;
+}
+
+ul#users > li.empty, ul#bills > li.empty
+{
+	padding: 20px 0px;
+	text-align: center;
 }
 
 ul#users
 {
 	display: block;
 	padding: 0px;
-	width: 462px;
-	margin: 0 auto; 
+	width: 472px;
+	margin: 0 auto;
 	margin-bottom: 20px;
-}
-
-ul#users > li
-{
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
 }
 
 ul#users span.username
 {
 	display: inline-block;
 	width: 150px;
+	cursor: pointer;
 }
 
 ul#users span.purchases
@@ -133,21 +165,14 @@ ul#users span.balance
 	text-align: right;
 }
 
-ul#users li.titles span.balance,
-ul#users li.titles span.purchases,
-ul#users li.titles span.target
-{
-	text-align: left;
-}
-
 ul#users span.negative
 {
-	color: red;
+	color: #990000;
 }
 
 ul#users span.positive
 {
-	color: green;
+	color: #009900;
 }
 
 ul#users li > form
@@ -155,16 +180,22 @@ ul#users li > form
 	display: none;
 }
 
+ul#users li.edit
+{
+	margin-top: 15px;
+	border: 2px solid #cccccc;
+	background: #eeeeee;
+}
+
 ul#users li.edit > a.add
 {
 	display: block;
 	height: 32px;
-	width: 462px;
 
 	line-height: 30px;
 	text-align: center;
 
-	color: black;
+	color: #404040;
 	text-decoration: none;
 }
 
@@ -176,17 +207,9 @@ ul#users li.edit > form
 ul#bills
 {
 	display: block;
-	margin: 0 auto;
 	padding: 0px;
-
-	width: 512px;
-}
-
-ul#bills > li
-{
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 ul#bills span.date
@@ -214,26 +237,43 @@ ul#bills span.amount
 	text-align: right;
 }
 
-ul#bills li.titles span.amount
+ul#bills li.summaries
 {
-	text-align: left;
+	font-weight: bold;
+	border-top: 1px solid #cccccc;
+}
+
+ul#bills li.edit
+{
+	margin-top: 15px;
+	border: 2px solid #cccccc;
+	background: #eeeeee;
 }
 
 ul#bills li.edit > a.add
 {
 	display: block;
 	height: 32px;
-	width: 512px;
 
 	line-height: 30px;
 	text-align: center;
 
-	color: black;
+	color: #404040;
 	text-decoration: none;
 }
 
 ul#bills li.edit > form
 {
 	display: none;
+	width: 100%;
 }
 
+ul#bills li.edit > form span.date { width: 150px; }
+ul#bills li.edit > form span.username input { width: 148px; }
+ul#bills li.edit > form span.shop input { width: 148px; }
+ul#bills li.edit > form span.amount input { width: 98px;  }
+
+ul li.edit > form p.submit
+{
+	text-align: right;
+}
