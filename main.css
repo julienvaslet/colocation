@@ -29,6 +29,7 @@ h1
 ul#monthes
 {
 	margin: 0px;
+	margin-top: 5px;
 	padding: 10px 0px;
 	text-align: center;
 	
@@ -42,7 +43,7 @@ ul#monthes > li.month
 	margin: 0px;
 	padding: 0px;
 	
-	padding-right: 5px;
+	padding: 0 20px;
 	border-right: 1px solid #cccccc;
 
 	list-style: none;
@@ -61,6 +62,8 @@ ul#monthes > li.selected
 ul#monthes > li.far:after
 {
 	content: " ... ";
+	padding: 0 20px;
+	border-left: 1px solid #cccccc;
 }
 
 ul#monthes > li.month a
