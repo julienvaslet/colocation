@@ -16,10 +16,12 @@ final class UserAbsence extends Object
 			"unsigned" 	    => true
 		),
 		"date_start" => array(
-			"type" 			=> "date"
+			"type" 			=> "date",
+			"null"			=> true
 		),
 		"date_end" => array(
-			"type" 			=> "date"
+			"type" 			=> "date",
+			"null"			=> true
 		)
 	);
 	

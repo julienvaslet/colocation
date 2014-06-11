@@ -48,7 +48,16 @@ if( count( $classes ) > 0 )
 		Database::getInstance()->query( "SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;" );
 	
 		foreach( $classes as $class )
-			$class::createTable();
+		{
+			try
+			{
+				$class::createTable();
+			}
+			catch( Exception $e )
+			{
+				echo "An exception has occured:\n".$e->getMessage()."\n";
+			}
+		}
 		
 		Database::getInstance()->query( "SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;" );
 	

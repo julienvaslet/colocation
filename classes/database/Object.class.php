@@ -331,7 +331,7 @@ abstract class Object
 			$query .= " LIMIT ".( ($page - 1) * $pageSize ).",".floatval( $pageSize );
 
 		$query .= ";";
-		
+
 		$result = $db->query( $query );
 
 		if( $result )
@@ -514,10 +514,19 @@ abstract class Object
 				
 		else if( is_array( $value ) )
 		{
+			$negate = false;
+			if( $value[0] == "!" )
+			{
+				$negate = true;
+				array_shift( $value );
+			}
+			// TODO: handle negate for others..
+
 			if( $value[0] == "set" )
 			{
 				array_shift( $value );
-				$selectorsArray[] = "`".static::$table."`.`".$selector."` IN ( ". implode( ",", array_map( function( $d ){ return Object::escapeData( $d ); }, $value ) ). ")";
+				// ERROR HERE
+				$selectorsArray[] = "`".static::$table."`.`".$selector."` ".( $negate ? "NOT IN" : "IN" )." ( ". implode( ",", array_map( function( $d ){ return Object::escapeData( $d ); }, $value ) ). ")";
 			}
 			else if( in_array( $value[0], array( '=', '>', '<', '<=', '>=', '!=' ) ) && count( $value ) >= 2 )
 			{

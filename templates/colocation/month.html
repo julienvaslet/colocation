@@ -107,20 +107,20 @@
 						</span>
 						<span class="username"><input type="text" placeholder="{language.username}" name="username" id="new-bill-username" required="true" value="" /></span>
 						<span class="shop"><input type="text" placeholder="{language.shop}" name="shop" id="new-bill-shop" value="" /></span>
-						<span class="amount"><input type="number" placeholder="{language.amount}" name="amount" id="new-bill-amount" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" required="true" value="" /></span>
+						<span class="amount"><input type="number" step="0.01" placeholder="{language.amount}" name="amount" id="new-bill-amount" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" required="true" value="" /></span>
 					</p>
 
 					<p>
 						<span class="date"></span>
 						<span class="username substract"><input type="button" id="substract-amount" value="{language.substract_this_amount}" /></span>
-						<span class="amount"><input type="number" placeholder="{language.amount}" id="amount-to-substract" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" /></span>
+						<span class="amount"><input type="number" step="0.01" placeholder="{language.amount}" id="amount-to-substract" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" /></span>
 					</p>
 					
 					<block name="category">
 					<p class="category">
 						<!--<span class="add"><input type="button" id="add-amount" value="{language.add_this_amount}" /></span>-->
 						<span class="category">{category.name}</span>
-						<span class="amount"><input type="number" placeholder="{language.amount}" name="category[{category.name}]" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" value="0.00" /></span>
+						<span class="amount"><input type="number" step="0.01" placeholder="{language.amount}" name="category[{category.name}]" pattern="[0-9]+([\.,][0-9]+)?" title="{language.number_description}" value="0.00" /></span>
 					</p>
 					</block>
 
